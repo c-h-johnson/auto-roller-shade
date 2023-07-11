@@ -1,0 +1,13 @@
+esphome:
+  name: $devicename
+
+binary_sensor:
+  # detects when the blind is fully lowered
+  - platform: gpio
+    id: limit_switch
+    pin:
+      number: $pin_switch_limit
+      mode:
+        input: true
+        pullup: true
+      inverted: true

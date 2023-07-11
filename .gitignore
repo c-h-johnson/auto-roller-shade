@@ -1,0 +1,7 @@
+cfg/*
+!cfg/example.yaml
+
+/.esphome/
+/secrets.yaml
+
+cad/parameters.scad

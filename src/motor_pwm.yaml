@@ -1,0 +1,41 @@
+output:
+  - platform: gpio
+    pin:
+      number: $pin_motor_a
+    id: motor_a
+  - platform: gpio
+    pin:
+      number: $pin_motor_b
+    id: motor_b
+  - platform: gpio
+    pin:
+      number: $pin_motor_pwm
+    id: motor_pwm
+
+cover:
+  - platform: feedback
+    id: my_cover
+    name: "$upper_devicename cover"
+
+    direction_change_wait_time: 5s
+
+    open_action:
+      - output.turn_on: motor_a
+      - output.turn_off: motor_b
+      - output.turn_on: motor_pwm
+    close_action:
+      - output.turn_on: motor_b
+      - output.turn_off: motor_a
+      - output.turn_on: motor_pwm
+    stop_action:
+      - output.turn_off: motor_a
+      - output.turn_off: motor_b
+      - output.turn_off: motor_pwm
+
+    open_duration: $open_duration
+    close_duration: $close_duration
+    max_duration: $max_duration
+
+    close_endstop: limit_switch
+
+<<: !include limit_switch.yml
